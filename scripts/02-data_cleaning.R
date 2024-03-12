@@ -9,36 +9,95 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(readxl)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+#### get from excel
+GenderAndGunPermit <- read_excel("data/raw_data/GenderAndGunPermit.xlsx")
+GenderAndGunPermit<-GenderAndGunPermit %>% mutate(V11=ifelse(V1=="Year","1972",V1))
+View(GenderAndGunPermit)
+  
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
-  mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
-  ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+Gunlaw <- read_excel("data/raw_data/Gunlaw.xlsx")
+View(Gunlaw)
+
+GunlawHighestDegree <- read_excel("data/raw_data/GunlawHighestDegree.xlsx")
+View(GunlawHighestDegree)  
+
+GunlawRepVsDem <- read_excel("data/raw_data/GunlawRepVsDem.xlsx")
+View(GunlawRepVsDem)  
+
+RaceAndGunlaw <- read_excel("data/raw_data/RaceAndGunlaw.xlsx")
+View(RaceAndGunlaw)  
+
+################################################ Repeat 32 - 42 for the other excel files
+#### Tidy up Data ####
+
+##  1
+
+Gunlaw <- Gunlaw |> 
+  slice(7:8)
+Gunlaw[1,1]<-"Year"
+names(Gunlaw)[1]<-"C1"
+
+#### PIVOT LONGER ####
+
+Gunlaw <- Gunlaw[-1] |> t() |> as.data.frame()
+
+##  2
+
+GenderAndGunPermit <- GenderAndGunPermit |> 
+  slice(7:9)
+GenderAndGunPermit[1,2]<-"Year"
+names(GenderAndGunPermit)[1]<-"C1"
+
+#### PIVOT LONGER ####
+
+GenderAndGunPermit <- GenderAndGunPermit[-1] |> t() |> as.data.frame()
+
+
+##  3
+
+GunlawHighestDegree <- GunlawHighestDegree |> 
+  slice(8:10)
+GunlawHighestDegree[1,1]<-"Year"
+names(GunlawHighestDegree)[1]<-"C1"
+
+#### PIVOT LONGER ####
+
+GunlawHighestDegree <- GunlawHighestDegree[-1] |> t() |> as.data.frame()
+
+##  4
+
+RaceAndGunlaw <- RaceAndGunlaw |> 
+  slice(7:10)
+RaceAndGunlaw[1,1]<-"Year"
+names(RaceAndGunlaw)[1]<-"C1"
+
+#### PIVOT LONGER ####
+
+RaceAndGunlaw <- RaceAndGunlaw[-1] |> t() |> as.data.frame()
+
+################################################
+
+######## splitstring get rid of values in brackets ######
+
+####### rename colombs #### https://stackoverflow.com/questions/4350440/split-data-frame-string-column-into-multiple-columns
+
+
+GenderAndGunPermit <- GenderAndGunPermit |> 
+  slice(7:9)
+
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+
+write_csv(Gunlaw, "data/analysis_data/Gunlaw.csv")
+
+write_csv(GenderAndGunPermit, "data/analysis_data/GenderAndGunPermit.csv")
+
+write_csv(GunlawHighestDegree, "data/analysis_data/GunlawHighestDegree.csv")
+
+write_csv(GunlawRepVsDem, "data/analysis_data/GunlawRepVsDem.csv")
+
+write_csv(RaceAndGunlaw, "data/analysis_data/RaceAndGunlaw.csv")
+
