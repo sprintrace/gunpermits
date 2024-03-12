@@ -78,6 +78,20 @@ names(RaceAndGunlaw)[1]<-"C1"
 
 RaceAndGunlaw <- RaceAndGunlaw[-1] |> t() |> as.data.frame()
 
+##  5
+
+names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans", "Other/Non-affiliated")
+
+
+GunlawRepVsDem <- GunlawRepVsDem |> 
+  slice(7:10)
+GunlawRepVsDem[1,1]<-"Year"
+names(GunlawRepVsDem)[1]<-"C1"
+
+#### PIVOT LONGER ####
+
+GunlawRepVsDem <- GunlawRepVsDem[-1] |> t() |> as.data.frame()
+
 ################################################
 
 ######## splitstring get rid of values in brackets ######
