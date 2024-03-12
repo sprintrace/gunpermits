@@ -7,7 +7,7 @@
 
 # History files
 .Rhistory
-.Rapp.history
+.Rapp.history 
 
 # Session Data files
 .RData
