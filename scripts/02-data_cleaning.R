@@ -92,7 +92,7 @@ GenderAndGunPermit[c('M','YY')] <- str_split_fixed(GenderAndGunPermit$'Male', ' 
 GenderAndGunPermit <- GenderAndGunPermit |>
   select(c("Year", "F", "M"))
 
-names(GenderAndGunPermit) <- c("Year", "Female", "Male")
+names(GenderAndGunPermit) <- c("Year", "Female", "Male")  
 
 
 
