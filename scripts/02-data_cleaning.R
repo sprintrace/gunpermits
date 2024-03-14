@@ -58,6 +58,9 @@ Gunlaw[c('Total','Y')] <- str_split_fixed(Gunlaw$'Total Americans in Favour', ' 
 Gunlaw <- Gunlaw |>
   select(c("Year", "Total"))
 
+names(Gunlaw) <- c("Year", "Total Americans in Favour")
+
+
 ##  2
 
 GenderAndGunPermit <- GenderAndGunPermit |> 
@@ -65,15 +68,31 @@ GenderAndGunPermit <- GenderAndGunPermit |>
 
 
 
-#### PIVOT LONGER ####
+#### PIVOT LONGER #### 
 
 GenderAndGunPermit <- GenderAndGunPermit[-1] |> t() |> as.data.frame()
 
-GenderAndGunPermit[1,1]<-"Year"
-names(GenderAndGunPermit)[1]<-"C1"
+names(GenderAndGunPermit)[1]<-"Year"
+names(GenderAndGunPermit)[2]<-"Female"
+names(GenderAndGunPermit)[3]<-"Male"
 
-##GenderAndGunPermit<-GenderAndGunPermit %>% mutate(V11=ifelse(V1=="Year","1972",V1))
+##### new lines to fix the num in brackets #####
 
+GenderAndGunPermit$'Female' <- sapply(GenderAndGunPermit$'Female', function(x) { gsub("[\r\n]", "", x) })
+
+GenderAndGunPermit[c('F','Y')] <- str_split_fixed(GenderAndGunPermit$'Female', ' ', 2)
+
+#### Male Data () removal
+
+GenderAndGunPermit$'Male' <- sapply(GenderAndGunPermit$'Male', function(x) { gsub("[\r\n]", "", x) })
+
+GenderAndGunPermit[c('M','YY')] <- str_split_fixed(GenderAndGunPermit$'Male', ' ', 2)
+
+#### remove the unwanted collumbs ####
+GenderAndGunPermit <- GenderAndGunPermit |>
+  select(c("Year", "F", "M"))
+
+names(GenderAndGunPermit) <- c("Year", "Female", "Male")
 
 
 
