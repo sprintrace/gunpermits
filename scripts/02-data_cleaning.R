@@ -126,7 +126,7 @@ GunlawHighestDegree[c('D','Y')] <- str_split_fixed(GunlawHighestDegree$'Degree o
 ##### repeat Line 122 - 124 with other variables #####
 
 
-#### Male Data () removal
+#### Male Data () removal #
 
 GunlawHighestDegree$'College degree' <- sapply(GunlawHighestDegree$'College degree', function(x) { gsub("[\r\n]", "", x) })
 
