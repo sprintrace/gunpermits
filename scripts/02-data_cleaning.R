@@ -14,7 +14,6 @@ library(readxl)
 #### Clean data ####
 #### get from excel
 GenderAndGunPermit <- read_excel("data/raw_data/GenderAndGunPermit.xlsx")
-GenderAndGunPermit<-GenderAndGunPermit %>% mutate(V11=ifelse(V1=="Year","1972",V1))
 View(GenderAndGunPermit)
   
 
@@ -30,6 +29,8 @@ View(GunlawRepVsDem)
 RaceAndGunlaw <- read_excel("data/raw_data/RaceAndGunlaw.xlsx")
 View(RaceAndGunlaw)  
 
+
+
 ################################################ Repeat 32 - 42 for the other excel files
 #### Tidy up Data ####
 
@@ -44,28 +45,51 @@ names(Gunlaw)[1]<-"C1"
 
 Gunlaw <- Gunlaw[-1] |> t() |> as.data.frame()
 
+
+####continue 
+names(Gunlaw) <- c("Year", "Total Americans in Favour")
+
+##### new lines to fix the num in brackets #####
+
+Gunlaw$'Total Americans in Favour' <- sapply(Gunlaw$'Total Americans in Favour', function(x) { gsub("[\r\n]", "", x) })
+
+Gunlaw[c('Total','Y')] <- str_split_fixed(Gunlaw$'Total Americans in Favour', ' ', 2)
+
+Gunlaw <- Gunlaw |>
+  select(c("Year", "Total"))
+
 ##  2
 
 GenderAndGunPermit <- GenderAndGunPermit |> 
   slice(7:9)
-GenderAndGunPermit[1,2]<-"Year"
-names(GenderAndGunPermit)[1]<-"C1"
+
+
 
 #### PIVOT LONGER ####
 
 GenderAndGunPermit <- GenderAndGunPermit[-1] |> t() |> as.data.frame()
 
+GenderAndGunPermit[1,1]<-"Year"
+names(GenderAndGunPermit)[1]<-"C1"
+
+##GenderAndGunPermit<-GenderAndGunPermit %>% mutate(V11=ifelse(V1=="Year","1972",V1))
+
+
+
 
 ##  3
 
 GunlawHighestDegree <- GunlawHighestDegree |> 
-  slice(8:10)
+  slice(7:10)
 GunlawHighestDegree[1,1]<-"Year"
 names(GunlawHighestDegree)[1]<-"C1"
 
 #### PIVOT LONGER ####
 
 GunlawHighestDegree <- GunlawHighestDegree[-1] |> t() |> as.data.frame()
+
+names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "High school","No Highschool")
+
 
 ##  4
 
@@ -78,10 +102,9 @@ names(RaceAndGunlaw)[1]<-"C1"
 
 RaceAndGunlaw <- RaceAndGunlaw[-1] |> t() |> as.data.frame()
 
+names(RaceAndGunlaw) <- c("Year", "White", "Black", "Other")
+
 ##  5
-
-names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans", "Other/Non-affiliated")
-
 
 GunlawRepVsDem <- GunlawRepVsDem |> 
   slice(7:10)
@@ -91,6 +114,11 @@ names(GunlawRepVsDem)[1]<-"C1"
 #### PIVOT LONGER ####
 
 GunlawRepVsDem <- GunlawRepVsDem[-1] |> t() |> as.data.frame()
+
+
+#### Add labels to Columbs ####
+names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans", "Other/Non-affiliated")
+
 
 ################################################
 
