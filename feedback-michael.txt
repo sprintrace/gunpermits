@@ -1,0 +1,72 @@
+README:
+	- All aspects need to be updated
+		- Title
+		- Overview
+		- File structure
+		- How to get the data
+		- LLM statement
+
+Sketches:
+	- Data sketch
+	- Graph sketch
+
+LLM:
+	- Update or remove
+
+Literature:
+	- Update or remove
+
+99-replications.R
+	- Remove
+
+00-simulate_data.R
+	- Update
+
+01-download_data.R
+	- Remove
+
+02-data_cleaning.R
+	- Change name to 01-data_cleaning.R
+	- Update preamble
+
+03-test_data.R
+	- Change name to 02-test_data.R
+	- Update
+
+04-model.R
+	- Remove
+
+paper.qmd:
+
+Right now:
+---
+title: "My title"
+subtitle: "My subtitle if needed"
+author: 
+  - First author
+  - Another author
+thanks: "Code and data are available at: LINK."
+date: today
+date-format: long
+abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+Update this to:
+---
+title: "Differences in the US by political party about sentiment toward gun permits"
+subtitle: "An analysis of the general social survey (1972 to 2022)"
+author: 
+  - Michael Shmelev
+thanks: "Code and data are available at: https://github.com/sprintrace/gunpermits."
+date: today
+date-format: long
+abstract: "First sentence. We examine data from the General Social Survey focused on sentiment toward gun permits from 1972 to 2022. We find that initially in our sample there is little difference in sentiment by political affiliation, however by the early 1990s this changes and recently sentiment has become very associated with political affiliation. Fourth sentence."
+format: pdf
+number-sections: true
+bibliography: references.bib
+---
+
+
