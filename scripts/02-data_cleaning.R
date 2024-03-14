@@ -105,9 +105,39 @@ names(GunlawHighestDegree)[1]<-"C1"
 
 #### PIVOT LONGER ####
 
+## new line
+
+names(GenderAndGunPermit)[1]<-"Year"
+names(GenderAndGunPermit)[2]<-"Degree or Higher"
+names(GenderAndGunPermit)[3]<-"Highschool"
+names(GenderAndGunPermit)[4]<-"No Highschool"
+#### old lines
+
 GunlawHighestDegree <- GunlawHighestDegree[-1] |> t() |> as.data.frame()
 
-names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "High school","No Highschool")
+names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "Highschool","No Highschool")
+
+##### new lines to fix the num in brackets #####
+
+GunlawHighestDegree$'Degree or Higher' <- sapply(GunlawHighestDegree$'Degree or Higher', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawHighestDegree[c('D','Y')] <- str_split_fixed(GunlawHighestDegree$'Degree or Higher', ' ', 2)
+
+##### repeat Line 122 - 124 with other variables #####
+
+
+#### Male Data () removal
+
+GunlawHighestDegree$'College degree' <- sapply(GunlawHighestDegree$'College degree', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawHighestDegree[c('M','YY')] <- str_split_fixed(GunlawHighestDegree$'College degree', ' ', 2)
+
+#### remove the unwanted collumbs ####
+GunlawHighestDegree <- GunlawHighestDegree |>
+  select(c("Year", "F", "M"))
+
+names(GunlawHighestDegree) <- c("Year", "Female", "Male")  
+
 
 
 ##  4
@@ -155,6 +185,8 @@ GenderAndGunPermit <- GenderAndGunPermit |>
 write_csv(Gunlaw, "data/analysis_data/Gunlaw.csv")
 
 write_csv(GenderAndGunPermit, "data/analysis_data/GenderAndGunPermit.csv")
+
+## below not loaded as csv yet
 
 write_csv(GunlawHighestDegree, "data/analysis_data/GunlawHighestDegree.csv")
 
