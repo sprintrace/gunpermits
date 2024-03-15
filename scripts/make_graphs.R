@@ -107,7 +107,7 @@ View(GunlawRepVsDem.csv)
 transform(RaceAndGunlaw, 'White' = as.numeric('White')) 
 transform(RaceAndGunlaw, 'Black' = as.numeric('Black')) 
 transform(RaceAndGunlaw, 'Other' = as.numeric('Other')) 
-
+ 
 
 ####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
 RaceAndGunlaw <- RaceAndGunlaw |> 
