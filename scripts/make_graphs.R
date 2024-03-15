@@ -61,14 +61,35 @@ transform(GunlawHighestDegree, 'No Highschool' = as.numeric('No Highschool'))
 GunlawHighestDegree <- GunlawHighestDegree |> 
   pivot_longer(cols=c('Degree or Higher', 'Highschool', 'No Highschool'), names_to='Education', values_to='Total')
 ###### MAKE THE PLOT #######
-ggplot(data=GunlawHighestDegree, aes(x = Year, y=Total, group = Gender)) +
-  geom_line(aes(colour=Gender))+
+ggplot(data=GunlawHighestDegree, aes(x = Year, y=Total, group = Education)) +
+  geom_line(aes(colour=Education))+
   labs(title = "Percentage of Americans in favour of police \n backed gun permits based on higest level of education", y = "Total % in favour")
 
 
 
 
+#4    GGPlot for GunlawRepVsDem.csv
 
 
+## load in CSV ##
+GunlawRepVsDem.csv <- read_csv("data/analysis_data/GunlawRepVsDem.csv")
+View(GunlawRepVsDem.csv)
+
+## create ggplot ##
+
+### turn strings into numbers
+transform(GunlawRepVsDem.csv, 'Democrats' = as.numeric('Democrats')) 
+transform(GunlawRepVsDem.csv, 'Republicans' = as.numeric('Republicans')) 
+transform(GunlawRepVsDem.csv, 'Other/Non-affiliated' = as.numeric('Other/Non-affiliated')) 
 
 
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+GunlawRepVsDem.csv <- GunlawRepVsDem.csv |> 
+  pivot_longer(cols=c('Democrats', 'Republicans', 'Other/Non-affiliated'), names_to='Party', values_to='Total')
+###### MAKE THE PLOT #######
+ggplot(data=GunlawRepVsDem.csv, aes(x = Year, y=Total, group = Party)) +
+  geom_line(aes(colour=Party))+
+  labs(title = "Percentage of Americans in favour of police \n backed gun permits based on higest level of education", y = "Total % in favour")
+
+
+ 
