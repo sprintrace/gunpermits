@@ -89,7 +89,30 @@ GunlawRepVsDem.csv <- GunlawRepVsDem.csv |>
 ###### MAKE THE PLOT #######
 ggplot(data=GunlawRepVsDem.csv, aes(x = Year, y=Total, group = Party)) +
   geom_line(aes(colour=Party))+
-  labs(title = "Percentage of Americans in favour of police \n backed gun permits based on higest level of education", y = "Total % in favour")
+  labs(title = "Americans in favour of police backed gun permits \n based on political affiliation", y = "Total % in favour")
 
 
- 
+
+
+
+#5    GGPlot for RaceAndGunlaw
+
+## load in CSV ##
+RaceAndGunlaw <- read_csv("data/analysis_data/RaceAndGunlaw.csv")
+View(GunlawRepVsDem.csv)
+
+## create ggplot ##
+
+### turn strings into numbers
+transform(RaceAndGunlaw, 'White' = as.numeric('White')) 
+transform(RaceAndGunlaw, 'Black' = as.numeric('Black')) 
+transform(RaceAndGunlaw, 'Other' = as.numeric('Other')) 
+
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+RaceAndGunlaw <- RaceAndGunlaw |> 
+  pivot_longer(cols=c('White', 'Black', 'Other'), names_to='Race', values_to='Total')
+###### MAKE THE PLOT #######
+ggplot(data=RaceAndGunlaw, aes(x = Year, y=Total, group = Race)) +
+  geom_line(aes(colour=Race))+
+  labs(title = "Americans in favour of police backed \n gun permits based on racial identity", y = "Total % in favour")
