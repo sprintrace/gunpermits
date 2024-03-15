@@ -61,6 +61,11 @@ Gunlaw <- Gunlaw |>
 names(Gunlaw) <- c("Year", "Total Americans in Favour")
 
 
+
+
+
+
+
 ##  2
 
 GenderAndGunPermit <- GenderAndGunPermit |> 
@@ -96,6 +101,9 @@ names(GenderAndGunPermit) <- c("Year", "Female", "Male")
 
 
 
+
+
+
 ##  3
 
 GunlawHighestDegree <- GunlawHighestDegree |> 
@@ -121,37 +129,87 @@ names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "Highschool","No Hig
 
 GunlawHighestDegree$'Degree or Higher' <- sapply(GunlawHighestDegree$'Degree or Higher', function(x) { gsub("[\r\n]", "", x) })
 
-GunlawHighestDegree[c('D','Y')] <- str_split_fixed(GunlawHighestDegree$'Degree or Higher', ' ', 2)
+GunlawHighestDegree[c('D','extra')] <- str_split_fixed(GunlawHighestDegree$'Degree or Higher', ' ', 2)
 
 ##### repeat Line 122 - 124 with other variables #####
+## Highschool
+
+GunlawHighestDegree$'Highschool' <- sapply(GunlawHighestDegree$'Highschool', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawHighestDegree[c('High','extra2')] <- str_split_fixed(GunlawHighestDegree$'Highschool', ' ', 3)
+
+## no Highschool
 
 
-#### Male Data () removal #
+GunlawHighestDegree$'No Highschool' <- sapply(GunlawHighestDegree$'No Highschool', function(x) { gsub("[\r\n]", "", x) })
 
-GunlawHighestDegree$'College degree' <- sapply(GunlawHighestDegree$'College degree', function(x) { gsub("[\r\n]", "", x) })
+GunlawHighestDegree[c('NoH','extra3')] <- str_split_fixed(GunlawHighestDegree$'No Highschool', ' ', 4)
 
-GunlawHighestDegree[c('M','YY')] <- str_split_fixed(GunlawHighestDegree$'College degree', ' ', 2)
 
 #### remove the unwanted collumbs ####
 GunlawHighestDegree <- GunlawHighestDegree |>
-  select(c("Year", "F", "M"))
+  select(c("Year","D","High","NoH"))
 
-names(GunlawHighestDegree) <- c("Year", "Female", "Male")  
+names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "Highschool","No Highschool")  
+
+
+
+
+
 
 
 
 ##  4
 
-RaceAndGunlaw <- RaceAndGunlaw |> 
+RaceAndGunlaw <- RaceAndGunlaw |>
   slice(7:10)
 RaceAndGunlaw[1,1]<-"Year"
 names(RaceAndGunlaw)[1]<-"C1"
 
+## New line
+#names(RaceAndGunlaw)[1]<-"Year"
+#names(RaceAndGunlaw)[2]<-"White"
+#names(RaceAndGunlaw)[3]<-"Black"
+#names(RaceAndGunlaw)[4]<-"Other"
+
 #### PIVOT LONGER ####
 
 RaceAndGunlaw <- RaceAndGunlaw[-1] |> t() |> as.data.frame()
-
 names(RaceAndGunlaw) <- c("Year", "White", "Black", "Other")
+
+
+##### New lines to fix the num in brackets #####
+
+RaceAndGunlaw$'White' <- sapply(RaceAndGunlaw$'White', function(x) { gsub("[\r\n]", "", x) })
+RaceAndGunlaw[c('White',' ')] <- str_split_fixed(RaceAndGunlaw$'White', ' ', 2)  # Assuming space separates values
+
+# BLACK
+
+RaceAndGunlaw$'Black' <- sapply(RaceAndGunlaw$'Black', function(x) { gsub("[\r\n]", "", x) })
+RaceAndGunlaw[c('Black',' ')] <- str_split_fixed(RaceAndGunlaw$'Black', ' ', 2)  # Assuming space separates values
+
+# Others
+
+RaceAndGunlaw$'Other' <- sapply(RaceAndGunlaw$'Other', function(x) { gsub("[\r\n]", "", x) })
+RaceAndGunlaw[c('Other',' ')] <- str_split_fixed(RaceAndGunlaw$'Other', ' ', 2)  # Assuming space separates values
+
+
+#### remove the unwanted collumbs ####
+RaceAndGunlaw <- RaceAndGunlaw |>
+  select(c("Year","White","Black","Other"))
+
+### LINE IS REDUNDANT
+#names(RaceAndGunlaw) <- c("Year", "White", "Black", "Other")
+
+
+
+
+
+
+
+
+
+
 
 ##  5
 
@@ -169,15 +227,11 @@ GunlawRepVsDem <- GunlawRepVsDem[-1] |> t() |> as.data.frame()
 names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans", "Other/Non-affiliated")
 
 
-################################################
-
-######## splitstring get rid of values in brackets ######
-
-####### rename colombs #### https://stackoverflow.com/questions/4350440/split-data-frame-string-column-into-multiple-columns
 
 
-GenderAndGunPermit <- GenderAndGunPermit |> 
-  slice(7:9)
+
+
+
 
 
 #### Save data ####
