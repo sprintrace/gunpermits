@@ -125,6 +125,8 @@ GunlawHighestDegree <- GunlawHighestDegree[-1] |> t() |> as.data.frame()
 
 names(GunlawHighestDegree) <- c("Year", "Degree or Higher", "Highschool","No Highschool")
 
+
+
 ##### new lines to fix the num in brackets #####
 
 GunlawHighestDegree$'Degree or Higher' <- sapply(GunlawHighestDegree$'Degree or Higher', function(x) { gsub("[\r\n]", "", x) })
@@ -222,9 +224,37 @@ names(GunlawRepVsDem)[1]<-"C1"
 
 GunlawRepVsDem <- GunlawRepVsDem[-1] |> t() |> as.data.frame()
 
-
 #### Add labels to Columbs ####
 names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans", "Other/Non-affiliated")
+
+
+##### new lines to fix the num in brackets #####
+
+GunlawRepVsDem$'Democrats' <- sapply(GunlawRepVsDem$'Democrats', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawRepVsDem[c('D','extra')] <- str_split_fixed(GunlawRepVsDem$'Democrats', ' ', 2)
+
+##### repeat Line 122 - 124 with other variables #####
+## Highschool
+
+GunlawRepVsDem$'Republicans' <- sapply(GunlawRepVsDem$'Republicans', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawRepVsDem[c('R','extra2')] <- str_split_fixed(GunlawRepVsDem$'Republicans', ' ', 3)
+
+## no Highschool
+
+
+GunlawRepVsDem$'Other/Non-affiliated' <- sapply(GunlawRepVsDem$'Other/Non-affiliated', function(x) { gsub("[\r\n]", "", x) })
+
+GunlawRepVsDem[c('OTH','extra3')] <- str_split_fixed(GunlawRepVsDem$'Other/Non-affiliated', ' ', 4)
+
+
+#### remove the unwanted collumbs ####
+GunlawRepVsDem <- GunlawRepVsDem |>
+  select(c("Year","D","R","OTH"))
+
+names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans","Other/Non-affiliated")  
+
 
 
 
