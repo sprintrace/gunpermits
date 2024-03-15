@@ -101,7 +101,7 @@ ggplot(data=GunlawRepVsDem.csv, aes(x = Year, y=Total, group = Party)) +
 RaceAndGunlaw <- read_csv("data/analysis_data/RaceAndGunlaw.csv")
 View(GunlawRepVsDem.csv)
 
-## create ggplot ##
+## create ggplot ## 
 
 ### turn strings into numbers
 transform(RaceAndGunlaw, 'White' = as.numeric('White')) 
