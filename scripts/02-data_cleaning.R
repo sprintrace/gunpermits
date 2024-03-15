@@ -264,7 +264,7 @@ names(GunlawRepVsDem) <- c("Year", "Democrats", "Republicans","Other/Non-affilia
 
 
 
-#### Save data ####
+#### Save data #### 
 
 write_csv(Gunlaw, "data/analysis_data/Gunlaw.csv")
 
