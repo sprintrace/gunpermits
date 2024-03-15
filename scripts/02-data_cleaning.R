@@ -248,7 +248,7 @@ GunlawRepVsDem$'Other/Non-affiliated' <- sapply(GunlawRepVsDem$'Other/Non-affili
 
 GunlawRepVsDem[c('OTH','extra3')] <- str_split_fixed(GunlawRepVsDem$'Other/Non-affiliated', ' ', 4)
 
-
+  
 #### remove the unwanted collumbs ####
 GunlawRepVsDem <- GunlawRepVsDem |>
   select(c("Year","D","R","OTH"))
