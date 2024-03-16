@@ -100,7 +100,7 @@ GenderAndGunPermit <- GenderAndGunPermit |>
 names(GenderAndGunPermit) <- c("Year", "Female", "Male")  
 
 
-
+ 
 
 
 
