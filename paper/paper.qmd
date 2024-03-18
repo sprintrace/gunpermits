@@ -11,6 +11,8 @@ abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
 format: pdf
 number-sections: true
 bibliography: references.bib
+execute:
+  echo: FALSE 
 ---
 
 ```{r}
@@ -19,7 +21,8 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+library(here)
+
 ```
 
 
@@ -42,42 +45,11 @@ Background about the questions that are asked.
 
 Plot each variable of interest and add discussion around them.
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
-
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
 
 Talk more about it.
 
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
 
 Talk way more about it. 
 
@@ -116,4 +88,34 @@ Weaknesses and next steps should also be included.
 
 # References
 
+
+TESTING GROUND
+
+```{r}
+### Load required libraries
+library(ggplot2)
+library(tidyr)
+
+```
+
+```{r}
+
+```
+
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Plot 1: GGPlot for GunLaw
+Gunlaw <- read_csv(here("./data/analysis_data/Gunlaw.csv"))
+transform(Gunlaw, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+
+names(Gunlaw) <- c("Year", "Total")
+
+ggplot(data=Gunlaw, aes(x = Year, y = Total, group = 1)) +
+  geom_line()+
+  labs(title = "Percentage of Americans in favour of police backed gun permits", y = "Total % of Americans in favour")
+
+```
 
