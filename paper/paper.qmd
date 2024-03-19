@@ -26,6 +26,64 @@ library(here)
 ```
 
 
+```{r}
+chooseCRANmirror(graphics = FALSE)  # Select a CRAN mirror
+install.packages("devtools")        # Install the devtools package
+```
+
+
+```{r}
+install.packages("devtools")
+install.packages("kableExtra")
+devtools::install_github("haozhu233/kableExtra")
+```
+
+
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+library(knitr)
+library(kableExtra)
+
+# Define the list
+dflist <- list(variables = c("All Americans","Race", "Gender", "Political Affiliation", "Level of Education"),
+               observations = c("All the following groups", "Self identified race of participants","Male/Female","Democrat/Republican/Other", "College Degree or Higher/Highschool Diploma/ No Highschool Diploma")
+              ) 
+
+# Convert the list to a data frame
+df <- as.data.frame(dflist)
+
+# Transpose the data frame
+df <- t(df)
+
+# Display the transposed data frame as a table with kableExtra
+kbl(df) %>%
+  kable_classic(full_width = FALSE, html_font = "Cambria")
+
+##///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+# Define the additional rows
+additional_rows <- data.frame(variables = c("Banchod"),
+                              observations = c("Banchod")
+                             )
+
+# Combine the original data frame with the additional rows
+
+# Transpose the data frame
+df <- t(df)
+
+# Display the updated data frame as a table with kableExtra
+kbl(df) %>%
+  kable_classic(full_width = FALSE, html_font = "Cambria")
+
+
+```
+
+
+
+
 # Introduction
 
 You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
