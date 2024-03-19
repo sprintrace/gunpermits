@@ -61,7 +61,87 @@ Our results are summarized in.
 
 //Add some analysis here. So that might be looking at difference over time or between states or between genders. Whatever.
 
+When looking at a general overview regarding sentiment towards mandatory gun permits for firearm owners in the United States, it's clear that in more recent years there has been less support for citizens having permits. Support for mandatory gun permits increased under the Reagan Republican administration. Support for mandatory gun permits started to decrease around the time of 2001/02. From 2002 onward sentiment toward mandatory gun permits has steadily decreased regardless of which party controlled the White House. Even during the Democratic party’s Obama administration  support for mandatory gun permits decreased.
 
+//Graph of the total//
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false
+
+# Plot 1: GGPlot for GunLaw
+Gunlaw <- read_csv(here("./data/analysis_data/Gunlaw.csv"))
+transform(Gunlaw, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+
+names(Gunlaw) <- c("Year", "Total")
+
+ggplot(data=Gunlaw, aes(x = Year, y = Total, group = 1)) +
+  geom_line()+
+  labs(title = "Percentage of Americans in favour of police backed gun permits", y = "Total % of Americans in favour")
+
+```
+
+
+Looking at how sentiments differ between Republicans and Democrats is also noteworthy. The second term of the George W. Bush Administration in 2004 Is notable as the starting  point for when sentiments towards mandatory gun permit ownership became more polarizing. While the views of voting Democrats remain pretty consistent, the views of Republicans start to differ going forward into the following administrations from where they were under the previous Clinton administration. Before the George W Bush administration, sentiments differed, but were similar between both Republican- and Democrat-voting Americans. 
+
+//Graph of DEMS VS REPUBLICANS//
+
+
+
+Additionally worth note is how sentiments towards gun permits change depending on Americans’ level of Education. Those with a college degree or higher overall have greater support towards gun owners having a permit, followed by Americans without high school diplomas. The lowest support for gun owners requiring permits comes from Americans that have a high school diploma and no college degree. 
+
+//Graph of Education level and opinions for gun permits
+
+We can also observe a large difference between male and female opinions on gun permits, where there is a consistent 15-20% difference towards mandatory enforcement of gun permits. 
+
+//Graph of MaleVsFemale
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false   
+#2    GGPlot for GenderAndGunPermit
+## load in CSV ##
+
+
+## create ggplot ##
+
+### turn strings into numbers
+transform(GenderAndGunPermit, 'Female' = as.numeric('Female')) 
+transform(GenderAndGunPermit, 'Male' = as.numeric('Male')) 
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+
+###### MAKE THE PLOT #######
+ggplot(data=GenderAndGunPermit, aes(x = Year, y=Total, group = Gender)) +
+  geom_line(aes(colour=Gender))+
+  labs(title = "Percentage of American Women vs Men \n in favour of police backed gun permits", y = "Total % in favour")
+
+```
+
+Race also appears to interact with gun ownership sentiments. Almost consistently, white people are less in favour of police backed mandatory gun permits. However, the omission of other racial groups in favour of one group called “other” makes it difficult to get a sense for the true opinions of America based on race. By combining many groups into one, we can observe a very volatile line on the graph that jumps between extremes multiple times before 1989. This data collection choice makes interpretation and comprehension difficult. 
+
+///Graph of Race and Gun Law
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false  ## load in CSV ##
+
+## create ggplot ## 
+ 
+### turn strings into numbers
+transform(RaceAndGunlaw, 'White' = as.numeric('White')) 
+transform(RaceAndGunlaw, 'Black' = as.numeric('Black')) 
+transform(RaceAndGunlaw, 'Other' = as.numeric('Other')) 
+ 
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+
+###### MAKE THE PLOT #######
+ggplot(data=RaceAndGunlaw, aes(x = Year, y=Total, group = Race)) +
+  geom_line(aes(colour=Race))+
+  labs(title = "Americans in favour of police backed \n gun permits based on racial identity", y = "Total % in favour")
+
+```
 
 
 # Discussion
@@ -102,20 +182,30 @@ library(tidyr)
 
 ```
 
+
+
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
 #| warning: false
 #| message: false
 
-# Plot 1: GGPlot for GunLaw
-Gunlaw <- read_csv(here("./data/analysis_data/Gunlaw.csv"))
-transform(Gunlaw, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+#2    GGPlot for GenderAndGunPermit
+## load in CSV ##
 
-names(Gunlaw) <- c("Year", "Total")
 
-ggplot(data=Gunlaw, aes(x = Year, y = Total, group = 1)) +
-  geom_line()+
-  labs(title = "Percentage of Americans in favour of police backed gun permits", y = "Total % of Americans in favour")
+## create ggplot ##
+
+### turn strings into numbers
+transform(GenderAndGunPermit, 'Female' = as.numeric('Female')) 
+transform(GenderAndGunPermit, 'Male' = as.numeric('Male')) 
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+
+###### MAKE THE PLOT #######
+ggplot(data=GenderAndGunPermit, aes(x = Year, y=Total, group = Gender)) +
+  geom_line(aes(colour=Gender))+
+  labs(title = "Percentage of American Women vs Men \n in favour of police backed gun permits", y = "Total % in favour")
+
 
 ```
 
