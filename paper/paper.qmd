@@ -86,11 +86,71 @@ Looking at how sentiments differ between Republicans and Democrats is also notew
 
 //Graph of DEMS VS REPUBLICANS//
 
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false  
 
+## load in CSV ##
+
+
+# Plot 1: GGPlot for GunLaw
+GunlawRepVsDem.csv <- read_csv(here("./data/analysis_data/GunlawRepVsDem.csv"))
+transform(GunlawRepVsDem.csv, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+
+## create ggplot ##
+
+### turn strings into numbers
+transform(GunlawRepVsDem.csv, 'Democrats' = as.numeric('Democrats')) 
+transform(GunlawRepVsDem.csv, 'Republicans' = as.numeric('Republicans')) 
+transform(GunlawRepVsDem.csv, 'Other/Non-affiliated' = as.numeric('Other/Non-affiliated')) 
+
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+GunlawRepVsDem.csv <- GunlawRepVsDem.csv |> 
+  pivot_longer(cols=c('Democrats', 'Republicans', 'Other/Non-affiliated'), names_to='Party', values_to='Total')
+###### MAKE THE PLOT #######
+ggplot(data=GunlawRepVsDem.csv, aes(x = Year, y=Total, group = Party)) +
+  geom_line(aes(colour=Party))+
+  labs(title = "Americans in favour of police backed gun permits \n based on political affiliation", y = "Total % in favour")
+
+
+
+
+```
 
 Additionally worth note is how sentiments towards gun permits change depending on Americans’ level of Education. Those with a college degree or higher overall have greater support towards gun owners having a permit, followed by Americans without high school diplomas. The lowest support for gun owners requiring permits comes from Americans that have a high school diploma and no college degree. 
 
 //Graph of Education level and opinions for gun permits
+```{r,echo=FALSE, results=FALSE}
+#| echo: false
+#| warning: false
+#| message: false   
+#3    GGPlot for GunlawHighestDegree
+
+## load in CSV ##
+GunlawHighestDegree.csv <- read_csv(here("./data/analysis_data/GunlawHighestDegree.csv"))
+transform(GunlawHighestDegree.csv, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+
+## create ggplot ##
+
+### turn strings into numbers
+transform(GunlawHighestDegree.csv, 'Degree or Higher' = as.numeric('Degree or Higher')) 
+transform(GunlawHighestDegree.csv, 'Highschool' = as.numeric('Highschool')) 
+transform(GunlawHighestDegree.csv, 'No Highschool' = as.numeric('No Highschool')) 
+
+
+####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
+GunlawHighestDegree.csv <- GunlawHighestDegree.csv |> 
+  pivot_longer(cols=c('Degree or Higher', 'Highschool', 'No Highschool'), names_to='Education', values_to='Total')
+###### MAKE THE PLOT #######
+ggplot(data=GunlawHighestDegree.csv, aes(x = Year, y=Total, group = Education)) +
+  geom_line(aes(colour=Education))+
+  labs(title = "Percentage of Americans in favour of police \n backed gun permits based on higest level of education", y = "Total % in favour")
+
+
+
+```
 
 We can also observe a large difference between male and female opinions on gun permits, where there is a consistent 15-20% difference towards mandatory enforcement of gun permits. 
 
@@ -101,20 +161,25 @@ We can also observe a large difference between male and female opinions on gun p
 #| message: false   
 #2    GGPlot for GenderAndGunPermit
 ## load in CSV ##
-
+GenderAndGunPermit.csv <- read_csv(here("./data/analysis_data/GenderAndGunPermit.csv"))
+transform(GenderAndGunPermit.csv, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
 
 ## create ggplot ##
 
 ### turn strings into numbers
-transform(GenderAndGunPermit, 'Female' = as.numeric('Female')) 
-transform(GenderAndGunPermit, 'Male' = as.numeric('Male')) 
+transform(GenderAndGunPermit.csv, 'Female' = as.numeric('Female')) 
+transform(GenderAndGunPermit.csv, 'Male' = as.numeric('Male')) 
 
 ####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
-
+GenderAndGunPermit.csv <- GenderAndGunPermit.csv |> 
+  pivot_longer(cols=c('Female', 'Male'), names_to='Gender', values_to='Total')
 ###### MAKE THE PLOT #######
-ggplot(data=GenderAndGunPermit, aes(x = Year, y=Total, group = Gender)) +
+ggplot(data=GenderAndGunPermit.csv, aes(x = Year, y=Total, group = Gender)) +
   geom_line(aes(colour=Gender))+
   labs(title = "Percentage of American Women vs Men \n in favour of police backed gun permits", y = "Total % in favour")
+
+
+
 
 ```
 
@@ -126,20 +191,28 @@ Race also appears to interact with gun ownership sentiments. Almost consistently
 #| warning: false
 #| message: false  ## load in CSV ##
 
+#5    GGPlot for RaceAndGunlaw
+
+## load in CSV ##
+RaceAndGunlaw.csv <- read_csv(here("./data/analysis_data/RaceAndGunlaw.csv"))
+transform(RaceAndGunlaw.csv, 'Total Americans in Favour' = as.numeric('Total Americans in Favour')) 
+
 ## create ggplot ## 
  
 ### turn strings into numbers
-transform(RaceAndGunlaw, 'White' = as.numeric('White')) 
-transform(RaceAndGunlaw, 'Black' = as.numeric('Black')) 
-transform(RaceAndGunlaw, 'Other' = as.numeric('Other')) 
+transform(RaceAndGunlaw.csv, 'White' = as.numeric('White')) 
+transform(RaceAndGunlaw.csv, 'Black' = as.numeric('Black')) 
+transform(RaceAndGunlaw.csv, 'Other' = as.numeric('Other')) 
  
 
 ####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
-
+RaceAndGunlaw.csv <- RaceAndGunlaw.csv |> 
+  pivot_longer(cols=c('White', 'Black', 'Other'), names_to='Race', values_to='Total')
 ###### MAKE THE PLOT #######
-ggplot(data=RaceAndGunlaw, aes(x = Year, y=Total, group = Race)) +
+ggplot(data=RaceAndGunlaw.csv, aes(x = Year, y=Total, group = Race)) +
   geom_line(aes(colour=Race))+
   labs(title = "Americans in favour of police backed \n gun permits based on racial identity", y = "Total % in favour")
+
 
 ```
 
@@ -169,43 +242,5 @@ Weaknesses and next steps should also be included.
 # References
 
 
-TESTING GROUND
 
-```{r}
-### Load required libraries
-library(ggplot2)
-library(tidyr)
-
-```
-
-```{r}
-
-```
-
-
-
-```{r,echo=FALSE, results=FALSE}
-#| echo: false
-#| warning: false
-#| message: false
-
-#2    GGPlot for GenderAndGunPermit
-## load in CSV ##
-
-
-## create ggplot ##
-
-### turn strings into numbers
-transform(GenderAndGunPermit, 'Female' = as.numeric('Female')) 
-transform(GenderAndGunPermit, 'Male' = as.numeric('Male')) 
-
-####Make 2 columns side by side into two values in one column one above the other (turn data into long format)
-
-###### MAKE THE PLOT #######
-ggplot(data=GenderAndGunPermit, aes(x = Year, y=Total, group = Gender)) +
-  geom_line(aes(colour=Gender))+
-  labs(title = "Percentage of American Women vs Men \n in favour of police backed gun permits", y = "Total % in favour")
-
-
-```
 
