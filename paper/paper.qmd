@@ -15,6 +15,8 @@ execute:
   echo: FALSE 
 ---
 
+
+
 ```{r}
 #| include: false
 #| warning: false
@@ -22,62 +24,41 @@ execute:
 
 library(tidyverse)
 library(here)
+library(readr)
 
 ```
 
 
 ```{r}
-chooseCRANmirror(graphics = FALSE)  # Select a CRAN mirror
-install.packages("devtools")        # Install the devtools package
+##chooseCRANmirror(graphics = FALSE)  # Select a CRAN mirror
+##install.packages("devtools")        # Install the devtools package
 ```
 
 
 ```{r}
-install.packages("devtools")
-install.packages("kableExtra")
-devtools::install_github("haozhu233/kableExtra")
+##install.packages("devtools")
+##install.packages("kableExtra")
+##devtools::install_github("haozhu233/kableExtra")
 ```
-
+  
 
 
 ```{r}
-library(knitr)
-library(kableExtra)
 
 library(knitr)
 library(kableExtra)
 
 # Define the list
-dflist <- list(variables = c("All Americans","Race", "Gender", "Political Affiliation", "Level of Education"),
-               observations = c("All the following groups", "Self identified race of participants","Male/Female","Democrat/Republican/Other", "College Degree or Higher/Highschool Diploma/ No Highschool Diploma")
-              ) 
+dflist <- list(variables = c("All Americans", "Race", "Gender", "Political Affiliation", "Level of Education"),
+               observations = c("All the following groups", "Self-identified race of participants", "Male/Female", "Democrat/Republican/Other", "College Degree or Higher/Highschool Diploma/No Highschool Diploma")
+)
 
 # Convert the list to a data frame
 df <- as.data.frame(dflist)
 
-# Transpose the data frame
-df <- t(df)
-
-# Display the transposed data frame as a table with kableExtra
+# Display the data frame as a table with kableExtra
 kbl(df) %>%
   kable_classic(full_width = FALSE, html_font = "Cambria")
-
-##///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-# Define the additional rows
-additional_rows <- data.frame(variables = c("Banchod"),
-                              observations = c("Banchod")
-                             )
-
-# Combine the original data frame with the additional rows
-
-# Transpose the data frame
-df <- t(df)
-
-# Display the updated data frame as a table with kableExtra
-kbl(df) %>%
-  kable_classic(full_width = FALSE, html_font = "Cambria")
-
 
 ```
 
@@ -106,7 +87,7 @@ Plot each variable of interest and add discussion around them.
 
 Talk more about it.
 
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+(You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
 
 Talk way more about it. 
