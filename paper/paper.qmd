@@ -43,26 +43,6 @@ library(readr)
   
 
 
-```{r}
-
-library(knitr)
-library(kableExtra)
-
-# Define the list
-dflist <- list(variables = c("All Americans", "Race", "Gender", "Political Affiliation", "Level of Education"),
-               observations = c("All the following groups", "Self-identified race of participants", "Male/Female", "Democrat/Republican/Other", "College Degree or Higher/Highschool Diploma/No Highschool Diploma")
-)
-
-# Convert the list to a data frame
-df <- as.data.frame(dflist)
-
-# Display the data frame as a table with kableExtra
-kbl(df) %>%
-  kable_classic(full_width = FALSE, html_font = "Cambria")
-
-```
-
-
 
 
 # Introduction
@@ -75,34 +55,58 @@ The remainder of this paper is structured as follows. @sec-data....
 
 # Data {#sec-data}
 
-//sum up gen survey and the questions the survey is intended to ask.
-Background about the GSS. 
+## Dataset Context
 
-Background about the sampling methodology
+  The General Social Survey (GSS) is a cross-sectional survey aiming to capture insights from a representative sample of adults aged 18 or older residing in noninstitutional housing across the United States. The data used in this study was retrieved from the US General Social Survey conducted by the National Opinion Research Center (NORC) at the University of Chicago. The GSS is a nationally representative survey that collects data on various social, demographic, and attitudinal topics. Data collected spans from 1970 to 2022.
 
-Background about the questions that are asked.
+### Why use this instead of similar datasets?
 
-Plot each variable of interest and add discussion around them.
+  This data set was used due to the reliability and high standards for quality and excellence set by the National Opinion Research Survey (NORC). Furthermore, using a General Social Survey eliminates an element of bias by having participants asked a wide range of questions reflecting various categories that are relevant. Additionally the GSS has adapted questions from earlier surveys, thereby allowing researchers to conduct comparisons for up to 80 years, meaning that there can be relevant data to inform American citizens’ opinions with a high degree of accuracy regardless of if the year surveyed is 1970 or 2022. 
+
+## Sampling Strategy 
+
+### Recruitment and invitation
+
+In the past, methods like quota sampling and age-based selection were used. Now, they use a system where adults in a household are chosen based on their order in the household, not their age. This new way of choosing people might affect the results because some age groups might be less comfortable with technology.
+
+As of 2022 respondents were invited to participate through mailing materials containing a web link to the survey or through in-person interviews, with a phone option also available. The survey employed a combination of face-to-face interviews (53.7%) and web-based surveys (38.0%), supplemented by phone (3.0%) and multimode (5.3%) options. To incentivize participation, both non-contingent prepaid incentives and contingent post-paid incentives were offered. 
+
+In 2022 the final sample comprised 3,544 complete responses from 15,012 sample lines. An additional 601 completes were obtained from an oversample of Black, Hispanic, and Asian respondents from the NORC AmeriSpeak® Panel. The American Association for Public Opinion Research (AAPOR) RR3 response rate was 50.5%. Fielding took place between May 4, 2022, and December 20, 2022, with the majority of locations concluding fieldwork on December 12, 2022, and one location extending until January 8, 2023.
+
+Administration of the survey involved a combination of mail push to web and in-person interviewing as primary modes, supplemented by phone interviews. Respondents were selected within households using the Kish method without age ordering. The survey was conducted in both English and Spanish languages to accommodate diverse respondents.
+
+## Survey design
+
+The GSS contains a standard core of demographic, behavioural, and attitudinal questions, plus topics of special interest. Among the topics covered are civil liberties, crime and violence, intergroup tolerance, morality, national spending priorities, psychological well-being, social mobility, and stress and traumatic events(CITE).
+
+The GSS is structured with five ways to answer a question, with a sixth way to do so with the “Do not Know/Cannot Choose” option being replaced with the “Skipped on Web” option for online survey responses. The exact wording may change depending on the year, but the general intention behind the choices remains consistent, as respondents are given the choice to reply with “Inapplicable”, “No answer”, “Do not Know”, “Skipped on Web”, “In Favour”, or “Oppose”.
+
+Sampling was conducted using a full-probability approach, drawing samples from a modified United States Postal Service (USPS) metropolitan statistical area (MSA)/county frame area. This approach has been consistent since 2004, ensuring continuity and facilitating the examination of historical trends. 
 
 
-Talk more about it.
+### Changes in Data Collection Methodology
 
-(You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+The way the GSS collected data changed significantly in 2021 and 2022. Previously, the GSS relied solely on in-person interviews. Now the GSS uses a mixed-mode approach, utilising face-to-face interviews, web-based surveys, and phone surveys. In 2022 a methodological experiment was conducted. This experiment was aimed at bridging data from 2018 and 2021 and to assess how the different data collection methods might influence the results. Half of the participants completed the survey in person, while the other half did so over the phone or using the internet.
 
+Changes were also made in how participants are selected for the survey. In the past, methods like quota sampling and age-based selection were used. Currently, the GSS employs a system where adults within a household are chosen based on their order in the household, rather than their age. This new approach might introduce bias on account of targeting individuals who are potentially less computer literate. 
 
-Talk way more about it. 
+### Covid-19’s impact on data collection in 2020 and 2021
 
+Data for both 2020 and 2021 are combined into one data set as a response to limitations of accessing people during the 2019-2022 Covid-19 pandemic. This combining of 2020 and 2021 data is inconsistent with the surveying practices of NORC and the GSS, and as such must be noted as a potential source of inaccurate data. Additionally, of note is the change in how respondents interact with the survey online compared to in person. Prior to 2020 when respondents were not certain about a question, or refused to answer the question, the surveyor would save their response as “Don’t Know”, “No Answer”, “Do not Know” or “Cannot Choose”. With the online survey users answered questions without interacting with a surveyor, and the response was changed to “Skipped on Web” to accommodate the change in format. These changes are unlikely to significantly impact the survey. 
+
+## Measurement
+
+Measurement of data was done by downloading data in excel files from the GSS website using the following link: https://gssdataexplorer.norc.org/trends?category=Civil%20Liberties&measure=gunlaw. After downloading the relevant excel files, data cleaning was conducted, shaving off a lot of unneeded rows using the slice function in the R programming language. Following this step, the tables were modified into a vertical format using a pivot longer approach and converted to CSV format for easy modification of the new variables. The data being looked at and graphed spans from 1972 to 2022.
+
+## Selected Variables
+
+I obtained data regarding the overall sentiment towards gun permits in the nation of the United States of America. Additionally, I obtained data for Americans in favour of gun permits on the basis of highest education, political affiliation, race, and gender. By choosing these categories, I intend to explore how different groups feel towards mandatory police backed gun permits. By looking at such a diverse set of variables, the aim is to explore if there are any direct patterns or consistent observations based on the different groups. Omitted variables from the original dataset include Subjective class identification, Condition of health, Hispanic specified, Marital status, and Citizenship status. These variables were omitted on account of them not having any immediately identifiable patterns. 
 
 
 # Results
 
-Our results are summarized in.
-
-//Add some analysis here. So that might be looking at difference over time or between states or between genders. Whatever.
-
 When looking at a general overview regarding sentiment towards mandatory gun permits for firearm owners in the United States, it's clear that in more recent years there has been less support for citizens having permits. Support for mandatory gun permits increased under the Reagan Republican administration. Support for mandatory gun permits started to decrease around the time of 2001/02. From 2002 onward sentiment toward mandatory gun permits has steadily decreased regardless of which party controlled the White House. Even during the Democratic party’s Obama administration  support for mandatory gun permits decreased.
 
-//Graph of the total//
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
 #| warning: false
@@ -120,10 +124,7 @@ ggplot(data=Gunlaw, aes(x = Year, y = Total, group = 1)) +
 
 ```
 
-
 Looking at how sentiments differ between Republicans and Democrats is also noteworthy. The second term of the George W. Bush Administration in 2004 Is notable as the starting  point for when sentiments towards mandatory gun permit ownership became more polarizing. While the views of voting Democrats remain pretty consistent, the views of Republicans start to differ going forward into the following administrations from where they were under the previous Clinton administration. Before the George W Bush administration, sentiments differed, but were similar between both Republican- and Democrat-voting Americans. 
-
-//Graph of DEMS VS REPUBLICANS//
 
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
@@ -160,7 +161,6 @@ ggplot(data=GunlawRepVsDem.csv, aes(x = Year, y=Total, group = Party)) +
 
 Additionally worth note is how sentiments towards gun permits change depending on Americans’ level of Education. Those with a college degree or higher overall have greater support towards gun owners having a permit, followed by Americans without high school diplomas. The lowest support for gun owners requiring permits comes from Americans that have a high school diploma and no college degree. 
 
-//Graph of Education level and opinions for gun permits
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
 #| warning: false
@@ -193,7 +193,6 @@ ggplot(data=GunlawHighestDegree.csv, aes(x = Year, y=Total, group = Education)) 
 
 We can also observe a large difference between male and female opinions on gun permits, where there is a consistent 15-20% difference towards mandatory enforcement of gun permits. 
 
-//Graph of MaleVsFemale
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
 #| warning: false
@@ -224,7 +223,6 @@ ggplot(data=GenderAndGunPermit.csv, aes(x = Year, y=Total, group = Gender)) +
 
 Race also appears to interact with gun ownership sentiments. Almost consistently, white people are less in favour of police backed mandatory gun permits. However, the omission of other racial groups in favour of one group called “other” makes it difficult to get a sense for the true opinions of America based on race. By combining many groups into one, we can observe a very volatile line on the graph that jumps between extremes multiple times before 1989. This data collection choice makes interpretation and comprehension difficult. 
 
-///Graph of Race and Gun Law
 ```{r,echo=FALSE, results=FALSE}
 #| echo: false
 #| warning: false
@@ -257,6 +255,12 @@ ggplot(data=RaceAndGunlaw.csv, aes(x = Year, y=Total, group = Race)) +
 
 
 # Discussion
+
+
+
+
+
+
 
 ## First discussion point {#sec-first-point}
 
