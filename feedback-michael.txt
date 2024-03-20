@@ -11,19 +11,19 @@ Sketches:
 	- Graph sketch (done)
 
 LLM:
-	- Update or remove
+	- Update or remove (done)
 
 Literature:
-	- Update or remove
+	- Update or remove (done)
 
 99-replications.R
 	- Remove (done)
 
 00-simulate_data.R
-	- Update
+	- Update (done)
 
 01-download_data.R
-	- Remove
+	- Remove 
 
 02-data_cleaning.R
 	- Change name to 01-data_cleaning.R (DONE)

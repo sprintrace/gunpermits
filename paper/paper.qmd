@@ -1,12 +1,11 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Do Americans Support or Oppose Gun Permits"
 author: 
   - Michael Shmelev
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/sprintrace/gunpermits"
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This study explores public sentiment in the United States towards mandatory gun permits using data from the General Social Survey (GSS) conducted by the National Opinion Research Center (NORC) at the University of Chicago. The analysis focuses on how various demographics, including political affiliation, race, gender, and education level, influence opinions on gun control. The findings reveal a decrease in overall support for mandatory gun permits since 2002, with potential explanations including the 9/11 attacks and a growing cultural divide."
 bibliography: cite3.bib
 format: pdf
 number-sections: true
@@ -30,13 +29,11 @@ library(readr)
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+This study explores public opinion in the United States regarding mandatory gun permits using data retrieved from the General Social Survey (GSS) conducted by the National Opinion Research Center (NORC) at the University of Chicago. The GSS is a reliable and nationally representative survey that collects data on various social and attitudinal topics, including gun control.
 
-The remainder of this paper is structured as follows. @sec-data....
+This analysis focuses on how sentiment towards mandatory gun permits has changed over time, with a particular emphasis on the period since 2002.  We will examine how demographics such as political affiliation, race, gender, and education level influence these opinions.
 
-
-
-# Data {#sec-data}
+# Data 
 
 ## Dataset Context
 
@@ -44,7 +41,7 @@ The remainder of this paper is structured as follows. @sec-data....
 
 ### Why use this instead of similar datasets?
 
-  This data set was used due to the reliability and high standards for quality and excellence set by the National Opinion Research Survey (NORC). Furthermore, using a General Social Survey eliminates an element of bias by having participants asked a wide range of questions reflecting various categories that are relevant. Additionally the GSS has adapted questions from earlier surveys, thereby allowing researchers to conduct comparisons for up to 80 years, meaning that there can be relevant data to inform American citizens’ opinions with a high degree of accuracy regardless of if the year surveyed is 1970 or 2022. 
+This data set was used due to the reliability and high standards for quality and excellence set by the National Opinion Research Survey (NORC). Furthermore, using a General Social Survey eliminates an element of bias by having participants asked a wide range of questions reflecting various categories that are relevant. Additionally the GSS has adapted questions from earlier surveys, thereby allowing researchers to conduct comparisons for up to 80 years, meaning that there can be relevant data to inform American citizens’ opinions with a high degree of accuracy regardless of if the year surveyed is 1970 or 2022. 
 
 ## Sampling Strategy 
 
@@ -239,31 +236,52 @@ ggplot(data=RaceAndGunlaw.csv, aes(x = Year, y=Total, group = Race)) +
 
 # Discussion
 
+## First discussion point
 
+When looking at the graphs one very interesting thing that is immediately evident is the fact that The total sentiment towards  mandatory gun permits has steadily been decreasing year after year since 2002. One notable event that happened at this time was 9/11, and the war on terror that closely followed.  One consideration for the desire to have less gun control in the form of permits being mandatory could potentially be the feeling of insecurity following the global tragedy. Following the attack on the World Trade Centre, there was a great mistrust towards Arabs or anyone looking like an Arab. 
 
+This change could be a reason for the sudden and continued desire for guns to be easier to acquire, with citizens feeling they must be able to protect themselves since the government was unable to prevent the 9/11 tragedy. 
 
+Furthermore, the increased desire to make guns more accessible could be because the citizens distrust the government. The original purpose of the second amendment is often debated to mean that American citizens have the right to bear arms in order to form militias to fight against the government itself. Additionally after 9/11 many people empowered by the newfound access to the internet began to subscribe to various conspiracy theories surrounding the government's involvement in the 9/11 tragedy. 
 
-
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
 
 ## Second discussion point
 
+Furthermore, the reason that the favour for mandatory gun permits continued to decline even after the George W. Bush presidency could be due to the fact that the Obama administration inherited the military conflicts and sentiments towards the middle east that were started under the Bush presidency. This is evident when examining the sentiments towards mandating gun permits based on political affiliations. Where there's a consistent difference between Republicans and Democrats regarding mandatory gun permits in 2012 there is a clear difference in the pattern shifting. while Democrats’  approval towards gun permits stay largely the same, between 81-85%, Republicans continue to further oppose gun permits with the 15% difference from 2000-2006 that was consistent in the past continuing to grow with the difference being 18% between 2008-2010; this is followed by a 22% difference in 2016 when Donald Trump became president, and a 37% difference with Republicans being less in favour of mandatory gun permits in 2021. These findings show a cultural divide between Republican and Democrat Americans.
+
 ## Third discussion point
+
+One reason that could explain why those with higher education are more likely to approve of mandatory gun permits Is the fact that they are more likely to have wealth and or status. Those with wealth or status tend to either have security, are well liked so there isn't much incentive to harm them, or are liked and treated fairly by the police.
+
+## Fourth discussion point
+
+One could speculate that men being less opposed to gun permits could be a result of how culture codes firearms as a man's activity. This is true as action movies seem to be marketed to boys and men over women and girls.
+
+## Fifth discussion point
+
+Black people and other people of colour being more likely to support gun permits is likely a result of people of colour experiencing more violent gun crimes on white people. Furthermore, the culture between white Americans and non white Americans is very different, with many white Americans viewing gun ownership as a hobby.
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
+This study examines public opinion on mandatory gun permits in the United States. While the analysis explores various demographic groups, a limitation exists in how racial categories are combined.  Grouping all ethnicities except Black and Latin Americans (Latin Americans were not examined in this paper, but the data was avalible on the website) into "Other" hinders a more precise understanding of viewpoints among specific races.
 
+Additionally, the study identifies potential explanations for trends observed in the data, such as historical events and government distrust. However, it cannot definitively establish cause-and-effect relationships.  For example, the decline in support for permits coinciding with 9/11 does not necessarily prove that 9/11 directly caused the decline.
+
+The study utilizes data collected at specific points in time, offering a cross-sectional view of public opinion. This limits the ability to track how individual views change over time in response to various events.
+
+To strengthen the research, future studies could disaggregate the "Other" racial category if the data allows. This would provide a more nuanced picture of ethnic group viewpoints. Additionally, conducting a longitudinal study that tracks the same group over time would offer a deeper understanding of how individual attitudes evolve. Supplementing quantitative data with qualitative research methods, such as in-depth interviews, could reveal the reasoning behind people's opinions on gun permits.
+
+Furthermore, future research could explore the potential influence of media coverage on public opinion towards gun control. Finally, including a geographic dimension could reveal variations in sentiment towards gun permits across different regions of the United States. By addressing these limitations and incorporating these next steps, future research can be strengthened and provide a more comprehensive understanding of public opinion on gun permits in the US.
 \newpage
 
 \appendix
 
-# Appendix {-}
+# Appendix
+
+Suplemental survey:
 
 https://docs.google.com/forms/d/e/1FAIpQLSewSdOqUt17prCm287W3FgkCC8GdMWMrgYlAw6CTWbCxOa06g/viewform?usp=sf_link
+
 
 # References
 
