@@ -2,15 +2,14 @@
 title: "My title"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Michael Shmelev
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+bibliography: cite3.bib
 format: pdf
 number-sections: true
-bibliography: references.bib
 execute:
   echo: FALSE 
 ---
@@ -27,22 +26,6 @@ library(here)
 library(readr)
 
 ```
-
-
-```{r}
-##chooseCRANmirror(graphics = FALSE)  # Select a CRAN mirror
-##install.packages("devtools")        # Install the devtools package
-```
-
-
-```{r}
-##install.packages("devtools")
-##install.packages("kableExtra")
-##devtools::install_github("haozhu233/kableExtra")
-```
-  
-
-
 
 
 # Introduction
@@ -280,10 +263,12 @@ Weaknesses and next steps should also be included.
 
 # Appendix {-}
 
-
+https://docs.google.com/forms/d/e/1FAIpQLSewSdOqUt17prCm287W3FgkCC8GdMWMrgYlAw6CTWbCxOa06g/viewform?usp=sf_link
 
 # References
 
+[@citeR]
 
+[@tellingstories]
 
 
